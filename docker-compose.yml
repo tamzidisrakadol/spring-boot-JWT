@@ -1,0 +1,35 @@
+version: '3.3.4'
+
+services:
+  springbootjwt:
+    image: springbootjwt
+    container_name: springbootjwt
+    restart: always
+    build: .
+    ports:
+      - 9999:9999
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: adol
+      MYSQL_PORT: 3306
+    networks:
+      - springboot-network
+    depends_on:
+      - mysqldb
+
+
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:8.0.34
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: springjwt
+      MYSQL_ROOT_PASSWORD: adol
+    networks:
+      - springboot-network
+
+
+networks:
+  springboot-network:
