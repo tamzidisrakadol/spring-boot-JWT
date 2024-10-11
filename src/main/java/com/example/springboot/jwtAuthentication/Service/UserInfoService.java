@@ -46,6 +46,11 @@ public class UserInfoService implements UserDetailsService {
     }
 
 
+    public void deleteUserInfo (int id){
+        userInfoRepository.deleteById(id);
+    }
+
+
 
 
 

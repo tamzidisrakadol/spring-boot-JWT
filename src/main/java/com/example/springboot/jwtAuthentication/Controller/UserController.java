@@ -7,6 +7,7 @@ import com.example.springboot.jwtAuthentication.Model.UserInfo;
 import com.example.springboot.jwtAuthentication.Security.JWT.JwtService;
 import com.example.springboot.jwtAuthentication.Service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -70,6 +71,13 @@ public class UserController {
         } else {
             throw new BadCredentialsException("Invalid user request!");
         }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") int id){
+        userInfoService.deleteUserInfo(id);
+        return ResponseEntity.ok("deleted user");
     }
 
 }
