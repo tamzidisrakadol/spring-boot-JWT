@@ -24,6 +24,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private UserInfoService userDetailsService;
 
+
+    /**
+     * This method is called for every incoming request to filter the request and handle authentication.
+     *
+     * @param request The HTTP request object.
+     * @param response The HTTP response object.
+     * @param filterChain The filter chain to continue processing the request.
+     * @throws ServletException If an error occurs during
+    the filter chain processing.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // Retrieve the Authorization header
