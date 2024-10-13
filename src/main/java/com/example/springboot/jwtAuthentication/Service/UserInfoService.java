@@ -51,6 +51,12 @@ public class UserInfoService implements UserDetailsService {
     }
 
 
+    public UserInfo userDetails(int id){
+        return userInfoRepository.findById(id).orElseThrow(() -> new RuntimeException("User with given id is not found on server"));
+
+    }
+
+
 
 
 

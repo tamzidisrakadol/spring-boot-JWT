@@ -7,7 +7,6 @@ import com.example.springboot.jwtAuthentication.Model.UserInfo;
 import com.example.springboot.jwtAuthentication.Security.JWT.JwtService;
 import com.example.springboot.jwtAuthentication.Service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -78,6 +77,13 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable("id") int id){
         userInfoService.deleteUserInfo(id);
         return ResponseEntity.ok("deleted user");
+    }
+
+    
+    @GetMapping("/getUserDetails/{id}")
+    public ResponseEntity<UserInfo> getUserDetails(@PathVariable("id") int id){
+        UserInfo userInfo = userInfoService.userDetails(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userInfo);
     }
 
 }
