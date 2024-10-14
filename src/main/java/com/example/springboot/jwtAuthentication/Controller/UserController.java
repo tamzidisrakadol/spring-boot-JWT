@@ -6,6 +6,11 @@ import com.example.springboot.jwtAuthentication.Model.JwtResponse;
 import com.example.springboot.jwtAuthentication.Model.UserInfo;
 import com.example.springboot.jwtAuthentication.Security.JWT.JwtService;
 import com.example.springboot.jwtAuthentication.Service.UserInfoService;
+
+import io.jsonwebtoken.Claims;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +46,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/admin/userList")
     public ResponseEntity<List<UserInfo>> listOfAllUSer(){
-        List<UserInfo> userInfoList = userInfoService.getallUserList();
+        List<UserInfo> userInfoList = userInfoService.getAllUserList();
         return ResponseEntity.ok(userInfoList);
     }
 
@@ -81,9 +86,9 @@ public class UserController {
 
     
     @GetMapping("/getUserDetails/{id}")
-    public ResponseEntity<UserInfo> getUserDetails(@PathVariable("id") int id){
-        UserInfo userInfo = userInfoService.userDetails(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userInfo);
+    public ResponseEntity<UserInfo> getUserDetails(@PathVariable("id") int id,@RequestHeader("Authorization") String token){
+            UserInfo userInfo = userInfoService.userDetails(id, token);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(userInfo);
     }
 
 }

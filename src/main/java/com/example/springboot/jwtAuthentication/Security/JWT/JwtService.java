@@ -115,12 +115,17 @@ public class JwtService {
      * @return A Claims object containing all the claims present in the token.
      */
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+
+    public Integer extractUserId(String token){
+        return extractClaim(token,claims->(Integer) claims.get("id"));
     }
 
 
